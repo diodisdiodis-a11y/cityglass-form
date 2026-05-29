@@ -106,48 +106,53 @@
   </section>
 
   <!-- EmailJS Script -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/index.min.js"></script>
-  <script type="text/javascript">
-    (function(){
-      emailjs.init("TfpS7yrJREaZwk15h4miY");
-    })();
-
-    document.getElementById('cadastroForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      
-      const submitBtn = document.getElementById('submitBtn');
-      const loading = document.getElementById('loading');
-      
-      submitBtn.style.display = 'none';
-      loading.style.display = 'block';
-      
-      const formData = new FormData(this);
-      
-      const templateParams = {
-        to_email: "oficialcityglass@gmail.com",
-        nome: formData.get('nome'),
-        idade: formData.get('idade'),
-        veiculo: formData.get('veiculo'),
-        anoVeiculo: formData.get('anoVeiculo'),
-        app: formData.get('app'),
-        whatsapp: formData.get('whatsapp'),
-        dataEnvio: new Date().toLocaleString('pt-BR')
-      };
-
-      try {
-        await emailjs.send(
-          "service_3srr6vg",
-          "template_0ymnea2",
-          templateParams
-        );
-        
-        window.location.href = '#sucesso';
-      } catch (error) {
-        console.error('Erro ao enviar:', error);
-        alert('Erro ao enviar cadastro. Tente novamente.');
-        submitBtn.style.display = 'flex';
-        loading.style.display = 'none';
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3.11.0/dist/build/index.min.js"></script>
+  <script>
+    // Aguardar o carregamento do script antes de usar
+    document.addEventListener('DOMContentLoaded', function() {
+      // Inicializar EmailJS
+      if (window.emailjs) {
+        emailjs.init("TfpS7yrJREaZwk15h4miY");
       }
+
+      document.getElementById('cadastroForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const submitBtn = document.getElementById('submitBtn');
+        const loading = document.getElementById('loading');
+        
+        submitBtn.style.display = 'none';
+        loading.style.display = 'block';
+        
+        const formData = new FormData(this);
+        
+        const templateParams = {
+          to_email: "oficialcityglass@gmail.com",
+          nome: formData.get('nome'),
+          idade: formData.get('idade'),
+          veiculo: formData.get('veiculo'),
+          anoVeiculo: formData.get('anoVeiculo'),
+          app: formData.get('app'),
+          whatsapp: formData.get('whatsapp'),
+          dataEnvio: new Date().toLocaleString('pt-BR')
+        };
+
+        try {
+          const response = await emailjs.send(
+            "service_3srr6vg",
+            "template_0ymnea2",
+            templateParams
+          );
+          
+          console.log('Email enviado com sucesso:', response);
+          window.location.href = '#sucesso';
+        } catch (error) {
+          console.error('Erro ao enviar email:', error);
+          alert('Erro ao enviar cadastro. Tente novamente. Erro: ' + error.message);
+          submitBtn.style.display = 'flex';
+          loading.style.display = 'none';
+        }
+      });
     });
   </script>
 </body>

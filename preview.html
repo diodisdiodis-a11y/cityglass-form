@@ -5,12 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CityGlass | Cadastro do Motorista</title>
   <!-- EmailJS Library -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/index.min.js"></script>
-  <script type="text/javascript">
-    (function(){
-      emailjs.init("NUkHrIN3Nu4NoW1kZ");
-    })();
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/index.min.js"></script>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
@@ -106,6 +101,10 @@
   </section>
 
   <script>
+    // Inicializar EmailJS
+    emailjs.init("NUkHrIN3Nu4NoW1kZ");
+
+    // Evento do formulário
     document.getElementById('formulario').addEventListener('submit', function(e) {
       e.preventDefault();
 
